@@ -1,6 +1,10 @@
+#Se fichier fera le lien entre le controller et le model. 
+
+#import
 from flask import request, url_for
 from datetime import date, datetime
 import enum
+from app.models.filmModel import filmModel
 
 class filmServices:
 
@@ -53,11 +57,6 @@ class filmServices:
 
         newFilm["rating"]=enum(list_film[6])
 
-        if list_film[7] != None:
-            newFilm["replacement_cost"]=float(list_film[7])
-        else:
-            newFilm["replacement_cost"] = ""
-
         newFilm["special_features"]=enum(list_film[6])
         newFilm["last_update"]=date.fromtimestamp(list_film[7])
 
@@ -67,7 +66,27 @@ class filmServices:
     #fonction pour creer une url de facon dynamique à partir d'un film
     def make_public_film(self,film):
         publicFilm = {}
-        #gerer l'id
+        # Todo gerer l'id
         for argument in film:         
             publicFilm[argument]=film[argument]
         return publicFilm
+
+
+    #crée une méthode get_all qui récupère tous les films via le model.
+    def get_all(self):
+        films = []
+        film = filmModel()
+        response = film.get_all_film()
+        for film in response:
+            film = self.make_film(film)
+            films.append(film)
+        return [self.make_public_film(film) for film in films]
+
+    #méthode qui permet de récupérer un film par son id
+    def get_film_by_id(self, film_id):
+        film = filmModel()
+        film = film.get_article_by_id(film_id)
+        if film is None:
+            return False
+        film = self.make_film(film)
+        return film

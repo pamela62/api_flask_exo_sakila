@@ -10,7 +10,7 @@ class ProductionConfig(Config):
 class DevelopmentConfig(Config):
     DEBUG = True
     #------------configuration à la connection mysql------------------
-    "MYSQL_HOST" = "localhost"
-    "MYSQL_USER" = "root"
-    "MYSQL_PASSWORD" = "root"
-    "MYSQL_DB" = "sakila"
+    MYSQL_HOST = "localhost"
+    MYSQL_USER = "root"
+    MYSQL_PASSWORD = "root"
+    MYSQL_DB = "sakila"

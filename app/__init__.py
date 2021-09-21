@@ -6,7 +6,7 @@ from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
-from app import routes
+from app import app
 
 if app.config["ENV"] == "production":
     app.config.from_object("config.ProductionConfig")
